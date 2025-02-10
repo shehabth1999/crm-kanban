@@ -53,24 +53,29 @@ const KanbanBoard = () => {
     stagesApi()
       .then((response) => setStages(response.data))
       .catch((error) => console.error(error));
-
+  
     const handleSocketMessage = (event) => {
-      const { data, message } = WebsocketDataHandler.processIncomingMessage(
-        event,
-        leads
-      );
-
-      if (data) {
-        setLeads(data);
-        toast.info(message);
-      }
+      setLeads((prevLeads) => {
+        const { data, message } = WebsocketDataHandler.processIncomingMessage(
+          event,
+          prevLeads
+        );
+  
+        if (data) {
+          console.log(data);
+          toast.info(message, { autoClose: 2000, position: "bottom-right" });
+          return data;
+        }
+        return prevLeads;
+      });
     };
+  
     addMessageListener(handleSocketMessage);
-
+  
     return () => {
       socket.removeEventListener("message", handleSocketMessage);
     };
-  }, [leads]);
+  }, []);
 
   return (
     <div>

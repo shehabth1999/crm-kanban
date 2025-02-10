@@ -11,7 +11,7 @@ const retryTime = 3000 // 3 sec
 
 const connectWebSocket = () => {
   if (socket) {
-    socket.close(); // Prevent duplicate connections
+    socket.close(); 
   }
 
   console.log("🔌 Connecting WebSocket...");
@@ -20,14 +20,13 @@ const connectWebSocket = () => {
   socket.onopen = () => {
     console.log("✅ WebSocket Connected");
     reconnectAttempts = 0; // Reset retry counter
-
+  
     // Remove persistent error toast if it exists
     if (toastId) {
       toast.update(toastId, { render: "Reconnected!", type: "success", autoClose: 2000 });
       toastId = null;
     }
-
-    // Reattach stored listeners
+    // ✅ Reattach stored listeners correctly
     listeners.forEach((listener) => {
       socket.addEventListener("message", listener);
     });
@@ -42,7 +41,7 @@ const connectWebSocket = () => {
 
     // Show a persistent notification if the connection drops
     if (!toastId) {
-      toastId = toast.warn("Connection lost! Trying to reconnect...", { autoClose: false });
+      toastId = toast.warn("Connection lost! Trying to reconnect...", { autoClose: 55000 });
     }
 
     if (reconnectAttempts < maxReconnectAttempts) {

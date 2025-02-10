@@ -71,24 +71,30 @@ export default class WebsocketDataHandler {
   }
 
   change_stage() {
-    const cleanedLeads = Object.keys(this.leads).reduce((acc, stageId) => {
-      acc[stageId] = this.leads[stageId].filter(
-        (lead) => lead.id !== this.data.id
-      );
-      return acc;
-    }, {});
-
-    const updatedLeads = {
-      ...cleanedLeads,
-      [this.data.stage.id]: [
-        ...(cleanedLeads[this.data.stage.id] || []),
-        this.data,
-      ],
-    };
-
+    const movedLeadId = this.data.id;
+    const newStageId = this.data.stage.id;
+    const updatedLeads = JSON.parse(JSON.stringify(this.leads));
+    let oldStageId = null;
+    for (const stageId in updatedLeads) {
+      if (updatedLeads[stageId].some(lead => lead.id === movedLeadId)) {
+        oldStageId = stageId;
+        break;
+      }
+    }
+    if (oldStageId === null) {
+      console.error("Lead not found in any stage:", movedLeadId);
+      return { data: this.leads, message: "Error: Lead not found!" };
+    }
+    updatedLeads[oldStageId] = updatedLeads[oldStageId].filter(lead => lead.id !== movedLeadId);
+    if (!updatedLeads[newStageId]) {
+      updatedLeads[newStageId] = [];
+    }
+    updatedLeads[newStageId].push(this.data);
+  
     return {
       data: updatedLeads,
       message: `Lead "${this.data.name}" moved to "${this.data.stage.name}"`,
     };
   }
+  
 }

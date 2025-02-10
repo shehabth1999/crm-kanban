@@ -57,18 +57,23 @@ const LeadModal = ({ modalData, handleClose }) => {
             <form onSubmit={handleSubmit}>
               {actionType !== "delete_lead" && (
                 <>
+                  <label htmlFor="lead-name">Lead Name:</label>
                   <input
+                    id="lead-name"
                     type="text"
                     name="name"
-                    placeholder="Lead Name"
+                    placeholder="Enter lead name"
                     value={formData.name}
                     onChange={handleChange}
                     required
                   />
+
+                  <label htmlFor="lead-email">Lead Email:</label>
                   <input
+                    id="lead-email"
                     type="email"
                     name="email"
-                    placeholder="Lead Email"
+                    placeholder="Enter lead email"
                     value={formData.email}
                     onChange={handleChange}
                     required
