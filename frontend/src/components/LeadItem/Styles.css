@@ -1,0 +1,13 @@
+.lead-item {
+    background: #ffffff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: grab;
+    transition: transform 0.2s;
+    display: flex;
+    justify-content: space-between;
+}

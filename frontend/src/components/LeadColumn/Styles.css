@@ -1,0 +1,39 @@
+.stage {
+    background: white;
+    width: 250px;
+    min-height: 300px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stage h2{
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task {
+    background: #ffffff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: grab;
+    transition: transform 0.2s;
+    display: flex;
+    justify-content: space-between;
+}
+  
+.task:active {
+    transform: scale(1.05);
+}
+  
